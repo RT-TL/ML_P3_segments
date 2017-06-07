@@ -11809,7 +11809,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import libraries necessary for this project</span>
@@ -11866,7 +11866,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Display a description of the dataset</span>
@@ -11995,7 +11995,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Select three indices of your choice you wish to sample from the dataset</span>
@@ -12131,7 +12131,7 @@ The third customer has a very limited overall amount of products (significantly 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Make a copy of the DataFrame, using the &#39;drop&#39; function to drop the given feature</span>
@@ -12149,7 +12149,14 @@ The third customer has a very limited overall amount of products (significantly 
 
 <span class="c1"># TODO: Report the score of the prediction using the testing set</span>
 <span class="n">score</span> <span class="o">=</span> <span class="n">regressor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">score</span>
+
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">new_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">feature</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+    <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">43</span><span class="p">)</span>
+    <span class="n">regressor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">regressor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">feature</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12164,7 +12171,12 @@ The third customer has a very limited overall amount of products (significantly 
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>-0.0933478413778
+<pre>Fresh -0.67720546286
+Milk 0.179820005375
+Grocery 0.564158310994
+Frozen -0.323344243749
+Detergents_Paper 0.137369846734
+Delicatessen -0.0933478413778
 </pre>
 </div>
 </div>
@@ -12190,7 +12202,7 @@ The third customer has a very limited overall amount of products (significantly 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-I tested the ability to predict the amount of Delicatessen, based on the hypothesis that it will correlate positively with the amount of fresh products (indicating a rather high-quality venture). The achieved score is -0.09. As suggested by the hint, the model failed to fit the data. Not being able to fit indicates that there are no correlations that could be found. In consequence, the feature holds information that can not be inferred from other features.</p>
+I tested the ability to predict the amount of Delicatessen, based on the hypothesis that it will correlate positively with the amount of fresh products (indicating a rather high-quality venture). The achieved score is -0.09. As suggested by the hint, the model failed to fit the data. Not being able to fit indicates that there are no correlations that could be found. In consequence, the feature holds information that can not be inferred from other features and is therefore necessary to identify spednding habits.</p>
 
 </div>
 </div>
@@ -21537,8 +21549,49 @@ kqTWMABJkiRJag0DkCRJkqTW+H9ycxh9ysHW4wAAAABJRU5ErkJggg==
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<p>Two clusters have been identified. This relates to the labels the underlying data sets provides, seperating customers into retailers versus hotels/restaurants/cafes. A customer assigned to the <strong>retailers-cluster</strong> is best represented by <strong>Segment 1</strong> because of the widespread range of products with a focus on Groceries and Milk products.</p>
-<p>A customer of the <strong>HoReCa-cluster</strong> is better represented by <strong>Segment 0</strong> because it focuses much more on fresh products and only moderate amount of other product categories.</p>
+<p>The segments are best classified when looking at their relative value compared to the quartiles. This gives a good indication, if a value is rather large or small. The following table displays the relative quartile value:</p>
+<table>
+<thead><tr>
+<th>Feature</th>
+<th>Segment 0</th>
+<th>Segment 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fresh</td>
+<td>&gt;50%</td>
+<td>&gt;25%</td>
+</tr>
+<tr>
+<td>Milk</td>
+<td>&gt;25%</td>
+<td>&gt;75%</td>
+</tr>
+<tr>
+<td>Grocery</td>
+<td>&gt;25%</td>
+<td>&gt;75%</td>
+</tr>
+<tr>
+<td>Frozen</td>
+<td>&gt;50%</td>
+<td>&gt;25%</td>
+</tr>
+<tr>
+<td>Detergents_paper</td>
+<td>&gt;25%</td>
+<td>&gt;75%</td>
+</tr>
+<tr>
+<td>Delicatessen</td>
+<td>&gt;25%</td>
+<td>&gt;50%°</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Segment 0</strong> is classified by relatively large values of <em>fresh</em> and <em>frozen</em> products, while the others are only around/above 25% quartile. The first mentioned features are the dominating area of spending while the overall amount of spendings is significantly below average (all feature values are below the mean). This indicates that this customer segments is also classfied by smaller volumes.</p>
+<p>The <strong>segment 1</strong> is classified by large amounts of <em>Milk, Groceries</em> and <em>Detergents_Paper</em> (all above 75% quartile), low spendings for <em>Fresh</em> and <em>Frozen</em> (only above 25% quartile) and medium spendings for <em>Delicatessen</em>. The overall volumen (total of all spendings) is significantly larger than in the other group.</p>
 
 </div>
 </div>
@@ -21633,8 +21686,18 @@ Sample point 2 predicted to be in Cluster 0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong></p>
-<p>Depending on the business the customer is running a change of delivery times can have a tremendously different impact. In order to find out which customers will react in what way a small-sized a/b test that also takes into account the segment a customer belongs to can provide answers. While on average group A might be indifferent, broken down by segments group A-segment-1 can have a very different reaction than group A-segment-2. Reasoning could be that customers in segment 1 might be more price-sensitive, happy about reduced cycles at a lower price, while customers in segment 2 might be more time-sensitive.</p>
+<p><strong>Answer:</strong>
+Why we have to do the A/B test segment by segment?
+What's the theory behind A/B test so that we can draw a conclusion based on it?
+How is the A/B test should be conducted by the wholesale distributor and how to analyze the results?</p>
+<p><strong>Principel of A/B-testing</strong>
+The basic idea behind the test is to split a population randomly in 2 groups, that due to random selection are both representative for the whole. The first group is exposed to version A (in this case longer delivery time), the second group exposed to version B (short delivery time). Observed differences in the groups behavior then indicate the performance impact of the change.</p>
+<p><strong>Applying A/B-testing to the current scenario</strong></p>
+<p>One difficulty is that the average group behavior might not reflect what is actually going on. While Semgent 0 might react differently than Segment 1 the average across both in one segment may be neutral, leading to the errornous conclusion that the change did not have any effect. To avoid this kind of errors, it makes sense to split the A/B-test by segments or at least ensure that segments are distributed equally across group 1 and group 2. If this is the case, the analysis of the results needs to be done segment by segment, effectivly seperating into 2 A/B-tests, one for Segment 0, one for Segment 1.</p>
+<p>In general only one variable should be changed when running in A/B-test. If the two groups differ by more than one variable, it is not possible to identify which of the changes caused the different behavior.</p>
+<p><strong>Interpretation of results</strong></p>
+<p>As mentioned it makes sense to interpret the result or even split the test by Segment. The hypothesis behind this is that the segments differ in their price sensitivity and time sensitivity regarding deliveries. The A/B-test is a statistical test, so the interpretation must apply proper methodology. Usually when comparing to groups a probability test (confidence interval) is used to evaluate, if the results differ because of an actual impact or due to chance (randomness in sampling and behavior). There is always the risk of false positives when running these tests, so a proper confidence level needs to be selected.</p>
+<p>However, in the current scenario of the wholesaler with 440 customers the maximum possible test size is very limited (especially if the goal is to test something that not all customers should be exposed to). This gets even more critical when needing to run multiple A/B-tests, e.g. in order to seperate customer segments. In this scenario there is a significant risk that the overall size of the population does not allow proper sampling for statistical significant answers. That being said if the results of the test are very unambigious this might not be an issue.</p>
 
 </div>
 </div>
